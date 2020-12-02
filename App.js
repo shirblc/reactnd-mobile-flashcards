@@ -5,6 +5,7 @@ import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import reducer from './reducers/index';
+import Home from './components/Home';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -15,6 +16,7 @@ export default class App extends React.Component {
 			<Provider store={store}>
 				<View style={styles.container}>
 					<Text>Open up App.js to start working on your app!</Text>
+					<Home />
 					<StatusBar style="auto" />
 				</View>
 			</Provider>
