@@ -1,15 +1,32 @@
 import React from 'react';
 import { KeyboardAvoidingView, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import { createDeckAsync } from '../actions/decks';
 
 class AddDeck extends React.Component {
+	state = {
+		deckName: ''
+	}
+
+	// Update the name of the new deck
+	updateName(newName) {
+		this.setState({
+			deckName: newName
+		});
+	}
+
+	// Create a new deck with the given deck name
+	addDeck() {
+		this.props.dispatch(createDeckAsync(this.state.deckName));
+	}
+
 	// render method
 	render() {
 		return (
 			<KeyboardAvoidingView style={styles.container}>
 				<Text style={styles.fieldTitle}>Deck Name:</Text>
-				<TextInput style={styles.textField}></TextInput>
-				<TouchableOpacity style={styles.submit}><Text>Add Deck</Text></TouchableOpacity>
+				<TextInput style={styles.textField} onChangeText={(text) => (this.updateName(text))} placeholder='Deck title'></TextInput>
+				<TouchableOpacity style={styles.submit} onPress={() => (this.addDeck())}><Text>Add Deck</Text></TouchableOpacity>
 			</KeyboardAvoidingView>
 		)
 	}
