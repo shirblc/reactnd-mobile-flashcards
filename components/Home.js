@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, Text, StyleSheet, Pressable } from 'react-native';
+import { SafeAreaView, Text, StyleSheet, Pressable, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons'; 
 import { getInitialData } from '../actions/shared';
@@ -20,13 +20,16 @@ class Home extends React.Component {
 				</Pressable>
 				{
 					Object.values(this.props.decks).length
-					? Object.entries(this.props.decks).map(entry =>  
-														   <Pressable key={entry[0]} onPress={() => (this.props.navigation.navigate('Deck View', {
-																   deckID: entry[0]
-															   }))}>
-															   <Deck deckName={entry[1].name} cardsNumber={entry[1].questions.length} />
-														   </Pressable>
-														  )
+					? <FlatList 
+						  data={Object.entries(this.props.decks)} 
+						  keyExtractor={item => item[0]}
+						  renderItem={({ item }) => (
+								<Pressable key={item[0]} onPress={() => (this.props.navigation.navigate('Deck View', {
+									   deckID: item[0]
+								   }))}>
+								   <Deck deckName={item[1].name} cardsNumber={item[1].questions.length} />
+							   </Pressable>
+							)} />
 					: <Text>No decks yet. Add your first one now!</Text>
 				}
 			</SafeAreaView>
