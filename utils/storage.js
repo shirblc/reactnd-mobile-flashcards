@@ -23,7 +23,7 @@ export function getData() {
 	});
 }
 
-// Create a new deck of cards and . handle the result
+// Create a new deck of cards and handle the result
 export function createDeck(deckName) {
 	// if successful, return the new deck and update the next ID
 	return addDeck(deckName).then(updatedData => {
