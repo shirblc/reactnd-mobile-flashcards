@@ -71,3 +71,32 @@ function addDeck(deckName) {
 			}
 		})));
 }
+
+// Add a new question to async storage
+export function addQuestion(question, answer, deck) {
+	// update the relevant deck with the new question's ID and update the questions
+	// object with the new question
+	return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
+		decks: {
+			[deck]: {
+				questions: [NEXT_QUESTION_ID]
+			}
+		},
+		questions: {
+			[NEXT_QUESTION_ID]: {
+				deck,
+				question,
+				answer
+			}
+		}
+	// once that's done, get the new question's information and return it
+	})).then(updatedData => {
+		const newQID = NEXT_QUESTION_ID;
+		const newQData = updatedData.questions[NEXT_QUESTION_ID];
+		NEXT_QUESTION_ID++;
+		return {
+			id: newQID,
+			question: newQData
+		}
+	});
+}
