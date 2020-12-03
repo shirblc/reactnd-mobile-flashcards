@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { SafeAreaView, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 class OpenDeck extends React.Component {
@@ -11,7 +11,7 @@ class OpenDeck extends React.Component {
 	// render method
 	render() {
 		return (
-			<View style={styles.container}>
+			<SafeAreaView style={styles.container}>
 				<Text style={styles.deckName}>{ this.props.deck.name }</Text>
 				<Text style={styles.deckText}>{ this.props.deck.questions.length } questions</Text>
 				
@@ -21,7 +21,7 @@ class OpenDeck extends React.Component {
 				<TouchableOpacity style={styles.deckButton} onPress={() => (this.props.navigation.navigate('Quiz', {
 						deckID: this.props.route.params.deckID
 					}))}><Text style={styles.buttonText}>Start Quiz</Text></TouchableOpacity>
-			</View>
+			</SafeAreaView>
 		)
 	}
 }

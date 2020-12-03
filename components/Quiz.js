@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 
 class Quiz extends React.Component {
@@ -32,7 +32,7 @@ class Quiz extends React.Component {
 	// render method
 	render() {
 		return (
-			<View style={styles.container}>
+			<SafeAreaView style={styles.container}>
 			{
 				this.state.currentQuestion + 1 <= this.props.questions.length ?
 				(<View style={styles.container}>
@@ -50,7 +50,7 @@ class Quiz extends React.Component {
 					<TouchableOpacity style={styles.questButton}><Text style={styles.buttonText} onPress={() => (this.props.navigation.navigate('Home'))}>Back to home view</Text></TouchableOpacity>
 				</View>)
 			}
-		</View>
+		</SafeAreaView>
 		)
 	}
 }

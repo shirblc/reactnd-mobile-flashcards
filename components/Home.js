@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { SafeAreaView, Text, StyleSheet, Pressable } from 'react-native';
 import { connect } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons'; 
 import { getInitialData } from '../actions/shared';
@@ -14,7 +14,7 @@ class Home extends React.Component {
 	// render
 	render() {
 		return (
-			<View style={styles.container}>
+			<SafeAreaView style={styles.container}>
 				<Pressable style={styles.deck} onPress={() => (this.props.navigation.navigate('Add Deck'))}>
 					<AntDesign name="plus" size={24} color="black" />
 				</Pressable>
@@ -29,7 +29,7 @@ class Home extends React.Component {
 														  )
 					: <Text>No decks yet. Add your first one now!</Text>
 				}
-			</View>
+			</SafeAreaView>
 		)
 	}
 }
