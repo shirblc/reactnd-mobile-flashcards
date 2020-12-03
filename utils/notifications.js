@@ -6,7 +6,7 @@ const NOTIFICATIONS_IDENTIFIER = 'mobileFlashcardsNotif';
 
 // Check whether the user has given permission to notifications
 export function checkNotificationPermission() {
-	Notifications.getPermissionsAsync().then(response => {
+	return Notifications.getPermissionsAsync().then(response => {
 		// if the user gave their permission, schedule a notification
 		if(response.granted) {
 			scheduleNotifications();
@@ -17,11 +17,17 @@ export function checkNotificationPermission() {
 				if(response.granted) {
 					scheduleNotifications();
 				}
+				// if permission was denied, alert the user
+				else {
+					alert('You have disabled notifications in your device settings. In order to enable notifications, we need permission. Go to your device settings -> notifications -> Mobile Flashcards and enable notifications. Then enable them in the app.')
+					return false;
+				}
 			});
 		}
 		// otherwise, alert the user they can't need to enable notifications in their device's settings
 		else {
 			alert('You have disabled notifications in your device settings. In order to enable notifications, we need permission. Go to your device settings -> notifications -> Mobile Flashcards and enable notifications. Then enable them in the app.')
+			return false;
 		}
 	});
 }

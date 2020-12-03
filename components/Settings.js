@@ -20,31 +20,47 @@ class Settings extends React.Component {
 				
 				// if notifications are enabled, schedule a notification
 				if(data.notificationsEnabled) {
-					checkNotificationPermission();
+					checkNotificationPermission().then(value => {
+						if(value === false) {
+							this.setState({
+								notificationsEnabled: false
+							});
+						}
+					});
 				}
 			}
 		})
 	}
 	
-	// Updates notifications settings to the opposite of what it was
-	updateNotificationsSetting() {
-		this.setState(currentState => ({
-			notificationsEnabled: !currentState.notificationsEnabled
-		}));
-		
-		// update async storage with the new settings
-		updateSettings({
-			notificationsEnabled: !this.state.notificationsEnabled
-		});
-		
+	// Check whether notifications settings can be updated
+	checkNotificationsSettings() {
 		// if the user wants to enable notifications, check for permission
 		if(!this.state.notificationsEnabled) {
-			checkNotificationPermission();
+			checkNotificationPermission().then(value => {
+				// if there was an issue, don't change anything
+				if(value !== false) {
+					this.updateNotificationsSettings();
+				}
+			});
 		}
 		// otherwise cancel all scheduled notifications
 		else {
 			disableNotifications();
+			this.updateNotificationsSettings();
 		}
+	}
+
+	// Updates notifications settings to the opposite of what it was
+	updateNotificationsSettings() {
+		// update the state
+		this.setState(currentState => ({
+			notificationsEnabled: !currentState.notificationsEnabled
+		}));
+
+		// update async storage with the new settings
+		updateSettings({
+			notificationsEnabled: !this.state.notificationsEnabled
+		});
 	}
 	
 	// render method
@@ -53,7 +69,7 @@ class Settings extends React.Component {
 			<SafeAreaView style={styles.container}>
 				<Text style={styles.mainTitle}>Settings</Text>
 				<Text style={styles.sectionTitle}>Notifications:</Text>
-				<TouchableOpacity style={styles.button} onPress={() => (this.updateNotificationsSetting())}><Text style={styles.buttonText}>{ this.state.notificationsEnabled ? 'Disable' : 'Enable' }</Text></TouchableOpacity>
+				<TouchableOpacity style={styles.button} onPress={() => (this.checkNotificationsSettings())}><Text style={styles.buttonText}>{ this.state.notificationsEnabled ? 'Disable' : 'Enable' }</Text></TouchableOpacity>
 			</SafeAreaView>
 		)
 	}
