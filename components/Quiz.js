@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 
 class Quiz extends React.Component {
@@ -35,14 +35,14 @@ class Quiz extends React.Component {
 			<SafeAreaView style={styles.container}>
 			{
 				this.state.currentQuestion + 1 <= this.props.questions.length ?
-				(<View style={styles.container}>
+				(<ScrollView style={styles.scrollContainer}>
 					<Text style={styles.currentQ}>{ this.state.currentQuestion + 1 } / { this.props.questions.length }</Text>
 					<Text style={styles.qText}>{ this.props.questions[this.state.currentQuestion][this.state.currentlyShowing] }</Text>
 					<TouchableOpacity style={styles.borderlessBtn} onPress={() => (this.changeView())}><Text style={styles.buttonText}>Click to view the { this.state.otherOption }</Text></TouchableOpacity>
 
 					<TouchableOpacity style={styles.questButton} onPress={() => (this.nextQuestion(true))}><Text style={styles.buttonText}>Correct</Text></TouchableOpacity>
 					<TouchableOpacity style={styles.questButton} onPress={() => (this.nextQuestion(false))}><Text style={styles.buttonText}>Incorrect</Text></TouchableOpacity>
-				</View>)
+				</ScrollView>)
 				: (<View style={styles.container}>
 					<Text style={styles.currentQ}>Quiz: { this.props.deck.name }</Text>
 					<Text style={styles.qText}>You scored { this.state.correctAnswers } out of { this.props.questions.length }!</Text>
@@ -73,6 +73,10 @@ const styles = StyleSheet.create({
 		padding: 5,
 		alignItems: 'center'
 	},
+	scrollContainer: {
+		flex: 1,
+		padding: 5,
+	},
 	currentQ: {
 		alignSelf: 'flex-start',
 		fontSize: 18,
@@ -81,7 +85,8 @@ const styles = StyleSheet.create({
 	},
 	qText: {
 		fontSize: 26,
-		padding: 10
+		padding: 10,
+		alignSelf: 'center'
 	},
 	questButton: {
 		borderColor: '#000',
@@ -96,7 +101,8 @@ const styles = StyleSheet.create({
 		margin: 10
 	},
 	buttonText: {
-		fontSize: 16
+		fontSize: 16,
+		alignSelf: 'center'
 	}
 });
 
