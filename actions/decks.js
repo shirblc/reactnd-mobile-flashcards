@@ -23,7 +23,7 @@ export function createDeckAsync(deckName) {
 // Create a new deck
 function createDeck(deck) {
 	return {
-		type: createDeck,
+		type: CREATE_DECK,
 		deck
 	}
 }
