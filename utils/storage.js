@@ -29,7 +29,7 @@ export function createDeck(deckName) {
 	return addDeck(deckName).then(updatedData => {
 		// since mergeItem returns data and setItem doesn't, the way the new deck is fetched depends on whether there's
 		// any return data. If there is, get the deck information from there; if there isn't, assume it's deck 0 and create a deck object.
-		const newDeckID = updatedData ? Object.keys(JSON.parse(updatedData).decks)[Object.keys(JSON.parse(updatedData).decks).length-1] : 0;
+		const newDeckID = NEXT_DECK_ID;
 		const deck = updatedData ? JSON.parse(updatedData).decks[newDeckID] : {
 			name: deckName,
 			questions: []
