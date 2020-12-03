@@ -92,7 +92,11 @@ export function addQuestion(question, answer, deck) {
 	// once that's done, get the new question's information and return it
 	})).then(updatedData => {
 		const newQID = NEXT_QUESTION_ID;
-		const newQData = updatedData.questions[NEXT_QUESTION_ID];
+		const newQData = updatedData ? JSON.parse(updatedData).questions[NEXT_QUESTION_ID] : {
+			deck,
+			question,
+			answer
+		};
 		NEXT_QUESTION_ID++;
 		return {
 			id: newQID,
