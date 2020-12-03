@@ -1,6 +1,7 @@
 import React from 'react';
 import { KeyboardAvoidingView, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import { CommonActions } from '@react-navigation/native';
 import { createQuestionAsync } from '../actions/questions.js';
 
 class AddQ extends React.Component {
@@ -19,6 +20,7 @@ class AddQ extends React.Component {
 	// Add the question to the store and to AsyncStorage
 	addQuestion() {
 		this.props.dispatch(createQuestionAsync(this.state.question, this.state.answer, this.props.route.params.deckID));
+		this.props.navigation.dispatch(CommonActions.goBack());
 	}
 
 	// render method
