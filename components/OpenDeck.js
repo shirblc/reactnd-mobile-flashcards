@@ -18,7 +18,9 @@ class OpenDeck extends React.Component {
 				<TouchableOpacity style={styles.deckButton} onPress={() => (this.props.navigation.navigate('Add Card', {
 						deckID: this.props.route.params.deckID
 					}))}><Text style={styles.buttonText}>Add Card</Text></TouchableOpacity>
-				<TouchableOpacity style={styles.deckButton}><Text style={styles.buttonText}>Start Quiz</Text></TouchableOpacity>
+				<TouchableOpacity style={styles.deckButton} onPress={() => (this.props.navigation.navigate('Quiz', {
+						deckID: this.props.route.params.deckID
+					}))}><Text style={styles.buttonText}>Start Quiz</Text></TouchableOpacity>
 			</View>
 		)
 	}
