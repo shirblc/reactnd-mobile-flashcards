@@ -27,24 +27,29 @@ export function checkNotificationPermission() {
 }
 
 // Schedule notifications every day at 7pm
-function scheduleNotifications() {	
-	// notification body
-	const notification = {
-		identifier: NOTIFICATIONS_IDENTIFIER,
-		content: {
-			title: 'Time to study!',
-			body: 'You haven\'t done a quiz today. Time to study!'
-		},
-		trigger: {
-			hour: 19,
-			minute: 0,
-			repeats: true
+function scheduleNotifications() {
+	// check there isn't already a scheduled notification
+	AsyncStorage.getItem(NOTIFICATIONS_IDENTIFIER).then(identifier => {
+		if(identifier === '') {
+			// notification body
+			const notification = {
+				identifier: NOTIFICATIONS_IDENTIFIER,
+				content: {
+					title: 'Time to study!',
+					body: 'You haven\'t done a quiz today. Time to study!'
+				},
+				trigger: {
+					hour: 19,
+					minute: 0,
+					repeats: true
+				}
+			};
+
+			// schedule it, then add the identifier to AsyncStorage
+			Notifications.scheduleNotificationAsync(notification).then(notifIdentifier => {
+				AsyncStorage.setItem(NOTIFICATIONS_IDENTIFIER, notifIdentifier)
+			});
 		}
-	};
-	
-	// schedule it, then add the identifier to AsyncStorage
-	Notifications.scheduleNotificationAsync(notification).then(notifIdentifier => {
-		AsyncStorage.setItem(NOTIFICATIONS_IDENTIFIER, notifIdentifier)
 	});
 }
 

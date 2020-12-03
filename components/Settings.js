@@ -16,7 +16,12 @@ class Settings extends React.Component {
 			if(data) {
 				this.setState({
 					notificationsEnabled: data.notificationsEnabled
-				})
+				});
+				
+				// if notifications are enabled, schedule a notification
+				if(data.notificationsEnabled) {
+					checkNotificationPermission();
+				}
 			}
 		})
 	}
