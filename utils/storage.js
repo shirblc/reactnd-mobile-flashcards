@@ -17,26 +17,50 @@ export function getData() {
 	});
 }
 
-// Create a new deck of cards
+// Create a new deck of cards and . handle the result
 export function createDeck(deckName) {
-	// merge the new deck into async storage
-	return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
-		decks: {
-			[NEXT_DECK_ID]: {
-				name: deckName,
-				questions: []
-			}
-		}
 	// if successful, return the new deck and update the next ID
-	})).then(updatedData => {
-		const newDeckID = Object.keys(updatedData.decks)[Object.keys(updatedData.decks).length-1];
+	return addDeck(deckName).then(updatedData => {
+		// since mergeItem returns data and setItem doesn't, the way the new deck is fetched depends on whether there's
+		// any return data. If there is, get the deck information from there; if there isn't, assume it's deck 0 and create a deck object.
+		const newDeckID = updatedData ? Object.keys(updatedData.decks)[Object.keys(updatedData.decks).length-1] : 0;
+		const deck = updatedData ? updatedData.decks[newDeckID] : {
+			name: deckName,
+			questions: []
+		};
+		
 		NEXT_DECK_ID++;
 		return {
 			id: newDeckID,
-			deck: updatedData.decks[newDeckID]
+			deck: deck
 		};
 	// if there's an error, return it
 	}).catch(err => {
 		return err;
 	})
+}
+
+// Create a new deck of cards in AsyncStorage
+function addDeck(deckName) {
+	return NEXT_DECK_ID ===  0 
+		?
+		// if this is the first deck to be added, use setItem to create the AsyncStorage object
+		(AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({
+			decks: {
+				[NEXT_DECK_ID]: {
+					name: deckName,
+					questions: []
+				}
+			}
+		})))
+		:
+		// otherwise, merge the deck into the existing object
+		(AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
+			decks: {
+				[NEXT_DECK_ID]: {
+					name: deckName,
+					questions: []
+				}
+			}
+		})));
 }
