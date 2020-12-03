@@ -29,7 +29,7 @@ class AddQ extends React.Component {
 				<TextInput styles={styles.textField} onChangeText={(text) => (this.updateCard(text, 'question'))} placeholder='Question'></TextInput>
 				<Text styles={styles.fieldTitle}>Enter the answer:</Text>
 				<TextInput styles={styles.textField} onChangeText={(text) => (this.updateCard(text, 'answer'))} placeholder='Correct Answer'></TextInput>
-				<TouchableOpacity styles={styles.submit} onPress={() => (this.addQuestion())}>Add Question</TouchableOpacity>
+				<TouchableOpacity styles={styles.submit} onPress={() => (this.addQuestion())}><Text>Add Question</Text></TouchableOpacity>
 			</KeyboardAvoidingView>
 		)
 	}
