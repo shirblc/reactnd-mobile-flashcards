@@ -3,6 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 class OpenDeck extends React.Component {
+	// called automatically upon rendering the component
+	componentDidMount() {
+		this.props.navigation.setOptions({ title: this.props.deck.name })
+	}
+	
 	// render method
 	render() {
 		return (
