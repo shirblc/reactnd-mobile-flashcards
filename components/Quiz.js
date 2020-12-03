@@ -21,13 +21,13 @@ class Quiz extends React.Component {
 	// render method
 	render() {
 		return (
-			<View>
-				<Text>{ this.state.currentQuestion + 1 } / { this.props.questions.length }</Text>
-				<Text>{ this.props.questions[this.state.currentQuestion][this.state.currentlyShowing] }</Text>
-				<TouchableOpacity onPress={() => (this.changeView())}><Text>Click to view the { this.state.otherOption }</Text></TouchableOpacity>
+			<View style={styles.container}>
+				<Text style={styles.currentQ}>{ this.state.currentQuestion + 1 } / { this.props.questions.length }</Text>
+				<Text style={styles.qText}>{ this.props.questions[this.state.currentQuestion][this.state.currentlyShowing] }</Text>
+				<TouchableOpacity style={styles.borderlessBtn} onPress={() => (this.changeView())}><Text style={styles.buttonText}>Click to view the { this.state.otherOption }</Text></TouchableOpacity>
 				
-				<TouchableOpacity><Text>Correct</Text></TouchableOpacity>
-				<TouchableOpacity><Text>Incorrect</Text></TouchableOpacity>
+				<TouchableOpacity style={styles.questButton}><Text style={styles.buttonText}>Correct</Text></TouchableOpacity>
+				<TouchableOpacity style={styles.questButton}><Text style={styles.buttonText}>Incorrect</Text></TouchableOpacity>
 			</View>
 		)
 	}
@@ -42,5 +42,39 @@ function mapStateToProps({ decks, questions }, { route }) {
 		questions: decks[deckID].questions.map(question => questions[question])
 	}
 }
+
+// styles
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		padding: 5,
+		alignItems: 'center'
+	},
+	currentQ: {
+		alignSelf: 'flex-start',
+		fontSize: 18,
+		padding: 5,
+		margin: 5
+	},
+	qText: {
+		fontSize: 26,
+		padding: 10
+	},
+	questButton: {
+		borderColor: '#000',
+		borderStyle: 'solid',
+		borderRadius: 5,
+		borderWidth: 3,
+		padding: 10,
+		margin: 10
+	},
+	borderlessBtn: {
+		padding: 10,
+		margin: 10
+	},
+	buttonText: {
+		fontSize: 16
+	}
+});
 
 export default connect(mapStateToProps)(Quiz)
