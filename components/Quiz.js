@@ -33,6 +33,8 @@ class Quiz extends React.Component {
 	}
 }
 
+// Map State to Props
+// Gets the details of all the questions of this specific deck
 function mapStateToProps({ decks, questions }, { route }) {
 	const deckID = route.params.deckID;
 	
