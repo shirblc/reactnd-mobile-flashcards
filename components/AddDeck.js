@@ -17,8 +17,16 @@ class AddDeck extends React.Component {
 
 	// Create a new deck with the given deck name
 	addDeck() {
-		this.props.dispatch(createDeckAsync(this.state.deckName));
-		this.props.navigation.navigate('Home');
+		new Promise((res, rej) => {
+			this.props.dispatch(createDeckAsync(this.state.deckName))
+			// after enough time passed, redirect the user to the newly created deck
+			setTimeout(() => {
+				this.props.navigation.navigate('Deck View', {
+				   deckID: this.props.lastDeck
+			   });
+				 res()
+			}, 500)
+		})
 	}
 
 	// Disables/Enables the 'add deck' button depending on whether the text field is empty
@@ -35,6 +43,14 @@ class AddDeck extends React.Component {
 				<TouchableOpacity style={styles.submit} onPress={() => (this.addDeck())} disabled={this.checkEmptyField()}><Text>Add Deck</Text></TouchableOpacity>
 			</KeyboardAvoidingView>
 		)
+	}
+}
+
+// Map State to Props
+// Gets the new deck
+function mapStateToProps({ decks }) {
+	return {
+		lastDeck: Object.keys(decks)[Object.keys(decks).length - 1]
 	}
 }
 
@@ -65,4 +81,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default connect()(AddDeck);
+export default connect(mapStateToProps)(AddDeck);
