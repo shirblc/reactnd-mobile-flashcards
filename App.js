@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import reducer from './reducers/index';
 import Home from './components/Home';
+import AddDeck from './components/AddDeck';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -22,6 +23,7 @@ export default class App extends React.Component {
 					<StatusBar style="auto" />
 					<Stack.Navigator>
 						<Stack.Screen name='Home' component={Home} />
+						<Stack.Screen name='Add Deck' component={AddDeck} />
 					</Stack.Navigator>
 				</Provider>
 			</NavigationContainer>
