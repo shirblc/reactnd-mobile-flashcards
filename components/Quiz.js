@@ -29,6 +29,16 @@ class Quiz extends React.Component {
 		}));
 	}
 
+	// Start the quiz over
+	redoQuiz() {
+		this.setState(currentState => ({
+			correctAnswers: 0,
+			currentQuestion: 0,
+			currentlyShowing: 'question',
+			otherOption: 'answer'
+		}));
+	}
+
 	// render method
 	render() {
 		return (
@@ -47,7 +57,11 @@ class Quiz extends React.Component {
 					<Text style={styles.currentQ}>Quiz: { this.props.deck.name }</Text>
 					<Text style={styles.qText}>You scored { this.state.correctAnswers } out of { this.props.questions.length }!</Text>
 					<Text style={styles.currentQ}>That's about { (this.state.correctAnswers / this.props.questions.length * 100).toFixed(2) }% right! </Text>
-					<TouchableOpacity style={styles.questButton}><Text style={styles.buttonText} onPress={() => (this.props.navigation.navigate('Home'))}>Back to home view</Text></TouchableOpacity>
+					<TouchableOpacity style={styles.questButton}><Text style={styles.buttonText} onPress={() => (this.redoQuiz())}>Redo Quiz</Text></TouchableOpacity>
+					<TouchableOpacity style={styles.questButton}><Text style={styles.buttonText} onPress={() => (this.props.navigation.navigate('Deck View', {
+								deckID: this.props.route.params.deckID
+							}))}>Back to Deck</Text></TouchableOpacity>
+					<TouchableOpacity style={styles.questButton}><Text style={styles.buttonText} onPress={() => (this.props.navigation.navigate('Home'))}>Back to Home</Text></TouchableOpacity>
 				</View>)
 			}
 		</SafeAreaView>
