@@ -48,7 +48,22 @@ function scheduleNotifications() {
 	});
 }
 
+// Cancel the daily notification
+export function cancelDailyNotification(currentTime) {
+	// get the notifications identifier value from async storage
+	AsyncStorage.getItem(NOTIFICATIONS_IDENTIFIER).then(identifier => {
+		// if there's a saved identifier and the daily notification hasn't gone off yet
+		if(identifier && currentTime.getHours() < 19) {
+			// cancel the notification
+			Notifications.cancelScheduledNotificationAsync(identifier);
+			AsyncStorage.setItem(NOTIFICATIONS_IDENTIFIER, '');
+		}
+	})
+}
+
 // Disable all existing notifications
 export function disableNotifications() {
-	return Notifications.cancelAllScheduledNotificationsAsync();
+	return Notifications.cancelAllScheduledNotificationsAsync().then(() => {
+		return AsyncStorage.setItem(NOTIFICATIONS_IDENTIFIER, '');
+	});
 }

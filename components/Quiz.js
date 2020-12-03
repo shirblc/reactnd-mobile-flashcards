@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
+import { cancelDailyNotification } from '../utils/notifications';
 
 class Quiz extends React.Component {
 	state = {
@@ -27,6 +28,11 @@ class Quiz extends React.Component {
 			currentlyShowing: 'question',
 			otherOption: 'answer'
 		}));
+		
+		// if it was the last question, add the completed quiz to the state and to async storage
+		if(this.state.currentQuestion + 1 >= this.props.questions.length) {
+			cancelDailyNotification(new Date());
+		}
 	}
 
 	// Start the quiz over
