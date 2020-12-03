@@ -31,7 +31,10 @@ export function createDeck(deckName) {
 	})).then(updatedData => {
 		const newDeckID = Object.keys(updatedData.decks)[Object.keys(updatedData.decks).length-1];
 		NEXT_DECK_ID++;
-		return updatedData.decks[newDeckID];
+		return {
+			id: newDeckID,
+			deck: updatedData.decks[newDeckID]
+		};
 	// if there's an error, return it
 	}).catch(err => {
 		return err;
