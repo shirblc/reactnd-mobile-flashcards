@@ -18,6 +18,25 @@ class Quiz extends React.Component {
 		}))
 	}
 
+	// Updates the user's score (if needed) and the current question in order to continue the quiz
+	nextQuestion(correctAnswer) {
+		// if this wasn't the last question, update the state to show the next question and update the user's score (if needed)
+		if(this.state.currentQuestion + 1 !== this.props.questions.length) {
+			this.setState(currentState => ({
+				correctAnswers: correctAnswer ? (currentState.correctAnswers + 1) : currentState.correctAnswers,
+				currentQuestion: currentState.currentQuestion + 1,
+				currentlyShowing: 'question',
+				otherOption: 'answer'
+			}));
+		}
+		// otherwise, just update the user's correct answers (if needed)
+		else {
+			this.setState(currentState => ({
+				correctAnswers: correctAnswer ? currentState.correctAnswers++ : currentState.correctAnswers
+			}));
+		}
+	}
+
 	// render method
 	render() {
 		return (
@@ -26,8 +45,8 @@ class Quiz extends React.Component {
 				<Text style={styles.qText}>{ this.props.questions[this.state.currentQuestion][this.state.currentlyShowing] }</Text>
 				<TouchableOpacity style={styles.borderlessBtn} onPress={() => (this.changeView())}><Text style={styles.buttonText}>Click to view the { this.state.otherOption }</Text></TouchableOpacity>
 				
-				<TouchableOpacity style={styles.questButton}><Text style={styles.buttonText}>Correct</Text></TouchableOpacity>
-				<TouchableOpacity style={styles.questButton}><Text style={styles.buttonText}>Incorrect</Text></TouchableOpacity>
+				<TouchableOpacity style={styles.questButton} onPress={() => (this.nextQuestion(true))}><Text style={styles.buttonText}>Correct</Text></TouchableOpacity>
+				<TouchableOpacity style={styles.questButton} onPress={() => (this.nextQuestion(false))}><Text style={styles.buttonText}>Incorrect</Text></TouchableOpacity>
 			</View>
 		)
 	}
