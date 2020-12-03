@@ -15,7 +15,7 @@ class Home extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Pressable style={styles.deck}>
+				<Pressable style={styles.deck} onPress={() => (this.props.navigation.navigate('Add Deck'))}>
 					<AntDesign name="plus" size={24} color="black" />
 				</Pressable>
 				{
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		borderWidth: 3,
 		padding: 10,
-		margin: 5
+		margin: 10
 	},
 });
 
