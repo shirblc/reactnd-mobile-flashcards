@@ -24,12 +24,12 @@ class AddQ extends React.Component {
 	// render method
 	render() {
 		return (
-			<KeyboardAvoidingView styles={styles.container}>
-				<Text styles={styles.fieldTitle}>Enter the question:</Text>
-				<TextInput styles={styles.textField} onChangeText={(text) => (this.updateCard(text, 'question'))} placeholder='Question'></TextInput>
-				<Text styles={styles.fieldTitle}>Enter the answer:</Text>
-				<TextInput styles={styles.textField} onChangeText={(text) => (this.updateCard(text, 'answer'))} placeholder='Correct Answer'></TextInput>
-				<TouchableOpacity styles={styles.submit} onPress={() => (this.addQuestion())}><Text>Add Question</Text></TouchableOpacity>
+			<KeyboardAvoidingView style={styles.container}>
+				<Text style={styles.fieldTitle}>Enter the question:</Text>
+				<TextInput style={styles.textField} onChangeText={(text) => (this.updateCard(text, 'question'))} placeholder='Question'></TextInput>
+				<Text style={styles.fieldTitle}>Enter the answer:</Text>
+				<TextInput style={styles.textField} onChangeText={(text) => (this.updateCard(text, 'answer'))} placeholder='Correct Answer'></TextInput>
+				<TouchableOpacity style={styles.submit} onPress={() => (this.addQuestion())}><Text>Add Question</Text></TouchableOpacity>
 			</KeyboardAvoidingView>
 		)
 	}
