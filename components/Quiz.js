@@ -21,33 +21,36 @@ class Quiz extends React.Component {
 	// Updates the user's score (if needed) and the current question in order to continue the quiz
 	nextQuestion(correctAnswer) {
 		// if this wasn't the last question, update the state to show the next question and update the user's score (if needed)
-		if(this.state.currentQuestion + 1 !== this.props.questions.length) {
-			this.setState(currentState => ({
-				correctAnswers: correctAnswer ? (currentState.correctAnswers + 1) : currentState.correctAnswers,
-				currentQuestion: currentState.currentQuestion + 1,
-				currentlyShowing: 'question',
-				otherOption: 'answer'
-			}));
-		}
-		// otherwise, just update the user's correct answers (if needed)
-		else {
-			this.setState(currentState => ({
-				correctAnswers: correctAnswer ? currentState.correctAnswers++ : currentState.correctAnswers
-			}));
-		}
+		this.setState(currentState => ({
+			correctAnswers: correctAnswer ? (currentState.correctAnswers + 1) : currentState.correctAnswers,
+			currentQuestion: currentState.currentQuestion + 1,
+			currentlyShowing: 'question',
+			otherOption: 'answer'
+		}));
 	}
 
 	// render method
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text style={styles.currentQ}>{ this.state.currentQuestion + 1 } / { this.props.questions.length }</Text>
-				<Text style={styles.qText}>{ this.props.questions[this.state.currentQuestion][this.state.currentlyShowing] }</Text>
-				<TouchableOpacity style={styles.borderlessBtn} onPress={() => (this.changeView())}><Text style={styles.buttonText}>Click to view the { this.state.otherOption }</Text></TouchableOpacity>
-				
-				<TouchableOpacity style={styles.questButton} onPress={() => (this.nextQuestion(true))}><Text style={styles.buttonText}>Correct</Text></TouchableOpacity>
-				<TouchableOpacity style={styles.questButton} onPress={() => (this.nextQuestion(false))}><Text style={styles.buttonText}>Incorrect</Text></TouchableOpacity>
-			</View>
+			{
+				this.state.currentQuestion + 1 <= this.props.questions.length ?
+				(<View style={styles.container}>
+					<Text style={styles.currentQ}>{ this.state.currentQuestion + 1 } / { this.props.questions.length }</Text>
+					<Text style={styles.qText}>{ this.props.questions[this.state.currentQuestion][this.state.currentlyShowing] }</Text>
+					<TouchableOpacity style={styles.borderlessBtn} onPress={() => (this.changeView())}><Text style={styles.buttonText}>Click to view the { this.state.otherOption }</Text></TouchableOpacity>
+
+					<TouchableOpacity style={styles.questButton} onPress={() => (this.nextQuestion(true))}><Text style={styles.buttonText}>Correct</Text></TouchableOpacity>
+					<TouchableOpacity style={styles.questButton} onPress={() => (this.nextQuestion(false))}><Text style={styles.buttonText}>Incorrect</Text></TouchableOpacity>
+				</View>)
+				: (<View style={styles.container}>
+					<Text style={styles.currentQ}>Quiz: { this.props.deck.name }</Text>
+					<Text style={styles.qText}>You scored { this.state.correctAnswers } out of { this.props.questions.length }!</Text>
+					<Text style={styles.currentQ}>That's about { (this.state.correctAnswers / this.props.questions.length * 100).toFixed(2) }% right! </Text>
+					<TouchableOpacity style={styles.questButton}><Text style={styles.buttonText}>Back to home view</Text></TouchableOpacity>
+				</View>)
+			}
+		</View>
 		)
 	}
 }
@@ -58,6 +61,7 @@ function mapStateToProps({ decks, questions }, { route }) {
 	const deckID = route.params.deckID;
 	
 	return {
+		deck: decks[deckID],
 		questions: decks[deckID].questions.map(question => questions[question])
 	}
 }
