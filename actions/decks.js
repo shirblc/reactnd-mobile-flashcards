@@ -1,3 +1,5 @@
+import { createDeck as createDeckInStorage } from '../utils/storage';
+
 export const ADD_DECKS = 'ADD_DECKS';
 export const CREATE_DECK = 'CREATE_DECK';
 
@@ -9,13 +11,19 @@ export function addDecks(decks) {
 	}
 }
 
+// Create a new deck in AsyncStorage and add the new deck to the redux store
+export function createDeckAsync(deckName) {
+	return (dispatch) => {
+		createDeckInStorage(deckName).then(newDeck => {
+			dispatch(createDeck(newDeck));
+		})
+	}
+}
+
 // Create a new deck
-export function createDeck(deckName) {
+function createDeck(deck) {
 	return {
 		type: createDeck,
-		deck: {
-			name: deckName,
-			questions: []
-		}
+		deck
 	}
 }
