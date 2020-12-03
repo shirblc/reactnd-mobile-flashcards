@@ -1,17 +1,35 @@
 import React from 'react';
 import { KeyboardAvoidingView, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import { createQuestionAsync } from '../actions/questions.js';
 
 class AddQ extends React.Component {
+	state = {
+		question: '',
+		answer: ''
+	}
+	
+	// Update the question or answer currently inputted by the user
+	updateCard(newText, updateField) {
+		this.setState({
+			[updateField]: newText
+		});
+	}
+
+	// Add the question to the store and to AsyncStorage
+	addQuestion() {
+		this.props.dispatch(createQuestionAsync(this.state.question, this.state.answer, this.props.route.params.deckID));
+	}
+
 	// render method
 	render() {
 		return (
 			<KeyboardAvoidingView styles={styles.container}>
 				<Text styles={styles.fieldTitle}>Enter the question:</Text>
-				<TextInput styles={styles.textField}></TextInput>
+				<TextInput styles={styles.textField} onChangeText={(text) => (this.updateCard(text, 'question'))} placeholder='Question'></TextInput>
 				<Text styles={styles.fieldTitle}>Enter the answer:</Text>
-				<TextInput styles={styles.textField}></TextInput>
-				<TouchableOpacity styles={styles.submit}>Add Question</TouchableOpacity>
+				<TextInput styles={styles.textField} onChangeText={(text) => (this.updateCard(text, 'answer'))} placeholder='Correct Answer'></TextInput>
+				<TouchableOpacity styles={styles.submit} onPress={() => (this.addQuestion())}>Add Question</TouchableOpacity>
 			</KeyboardAvoidingView>
 		)
 	}
