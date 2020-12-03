@@ -18,6 +18,7 @@ class AddDeck extends React.Component {
 	// Create a new deck with the given deck name
 	addDeck() {
 		this.props.dispatch(createDeckAsync(this.state.deckName));
+		this.props.navigation.navigate('Home');
 	}
 
 	// render method
