@@ -8,6 +8,11 @@ class OpenDeck extends React.Component {
 		this.props.navigation.setOptions({ title: this.props.deck.name })
 	}
 	
+	// Disables the quiz button if there are no questions
+	checkNumQuestions  = () => {
+		return this.props.deck.questions.length === 0;
+	}
+	
 	// render method
 	render() {
 		return (
@@ -20,7 +25,7 @@ class OpenDeck extends React.Component {
 					}))}><Text style={styles.buttonText}>Add Card</Text></TouchableOpacity>
 				<TouchableOpacity style={styles.deckButton} onPress={() => (this.props.navigation.navigate('Quiz', {
 						deckID: this.props.route.params.deckID
-					}))}><Text style={styles.buttonText}>Start Quiz</Text></TouchableOpacity>
+					}))} disabled={this.checkNumQuestions()}><Text style={styles.buttonText}>Start Quiz</Text></TouchableOpacity>
 			</SafeAreaView>
 		)
 	}
