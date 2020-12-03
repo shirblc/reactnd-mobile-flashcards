@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 // App-specific imports
 import reducer from './reducers/index';
@@ -49,18 +49,14 @@ export default class App extends React.Component {
 							component={HomeStack} 
 							options={{
 								tabBarIcon: ({color, size}) => (
-									Platform.OS === 'iOS' 
-									? <Ionicons name="ios-book-outline" size={size} color={color} />
-									: <Ionicons name="md-book-outline" size={size} color={color} />
+									<Feather name="book-open" size={size} color={color} />
 								)}} 
 							/>
 						<TabsNav.Screen name='Settings' 
 							component={Settings} 
 							options={{
 								tabBarIcon: ({color, size}) => (
-									Platform.OS === 'iOS' 
-									? <Ionicons name="ios-settings-outline" size={size} color={color} />
-									: <Ionicons name="md-settings-outline" size={size} color={color} />
+									<Feather name="settings" size={size} color={color} />
 								)}} 
 							/>
 					</TabsNav.Navigator>
