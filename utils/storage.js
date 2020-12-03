@@ -35,7 +35,7 @@ export function createDeck(deckName) {
 			questions: []
 		};
 		
-		NEXT_DECK_ID++;
+		NEXT_DECK_ID = Number(NEXT_DECK_ID) + 1;
 		return {
 			id: newDeckID,
 			deck: deck
@@ -97,7 +97,7 @@ export function addQuestion(question, answer, deck) {
 			question,
 			answer
 		};
-		NEXT_QUESTION_ID++;
+		NEXT_QUESTION_ID = Number(NEXT_QUESTION_ID) + 1;
 		return {
 			id: newQID,
 			question: newQData
