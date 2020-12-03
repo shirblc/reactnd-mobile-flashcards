@@ -52,6 +52,7 @@ Contains the app's components. These include:
 4. **OpenDeck.js** - OpenDeck component. Contains details about the current deck, as well as options to add another card and to run a quiz with that deck's cards.
 5. **Quiz.js** - Quiz component. Displays the chosen deck's questions and displays a user score once the user goes through all cards.
 6. **AddQ.js**- AddQ component, used to create a new question (card).
+7. **Settings.js** - Settings component. Currently used to update notifications settings.
 
 ### Reducers
 
@@ -68,6 +69,7 @@ Contains the reducers used by this app's store. There are currently three reduce
 **Located in:** [src/utils](./src/utils) 
 
 1. **storage.js**- Contains utility methods for accessing and modifying AsyncMemory.
+2. **notifications.js** - Contains utility methods for handling local notifications.
 
 ## Dependencies
 
