@@ -7,13 +7,19 @@ let NEXT_QUESTION_ID = 0;
 // Get all saved data from AsyncStorage
 export function getData() {
 	return AsyncStorage.getItem(STORAGE_KEY).then(data => {
+		let returnData;
 		// if there's any existing data, update the value for the question and deck added next
 		if(data) {
-			NEXT_DECK_ID = Number(Object.keys(data.decks)[Object.keys(data.decks).length-1] + 1);
-			NEXT_QUESTION_ID = Number(Object.keys(data.questions)[Object.keys(data.questions).length-1] + 1);
+			returnData = JSON.parse(data);
+			NEXT_DECK_ID = Number(Object.keys(returnData.decks)[Object.keys(returnData.decks).length-1] + 1);
+			NEXT_QUESTION_ID = Object.keys(returnData.questions).length ? Number(Object.keys(returnData.questions)[Object.keys(returnData.questions).length-1] + 1) : 0;
 		}
-		// if there's any existing data, return it; otherwise return empty objects
-		return data ? { decks, questions } : { decks: {}, questions: {} }
+		// otherwise return empty objects
+		else {
+			returnData = { decks: {}, questions: {} };
+		}
+		
+		return returnData;
 	});
 }
 
@@ -23,8 +29,8 @@ export function createDeck(deckName) {
 	return addDeck(deckName).then(updatedData => {
 		// since mergeItem returns data and setItem doesn't, the way the new deck is fetched depends on whether there's
 		// any return data. If there is, get the deck information from there; if there isn't, assume it's deck 0 and create a deck object.
-		const newDeckID = updatedData ? Object.keys(updatedData.decks)[Object.keys(updatedData.decks).length-1] : 0;
-		const deck = updatedData ? updatedData.decks[newDeckID] : {
+		const newDeckID = updatedData ? Object.keys(JSON.parse(updatedData).decks)[Object.keys(JSON.parse(updatedData).decks).length-1] : 0;
+		const deck = updatedData ? JSON.parse(updatedData).decks[newDeckID] : {
 			name: deckName,
 			questions: []
 		};
@@ -51,7 +57,8 @@ function addDeck(deckName) {
 					name: deckName,
 					questions: []
 				}
-			}
+			},
+			questions: { }
 		})))
 		:
 		// otherwise, merge the deck into the existing object
