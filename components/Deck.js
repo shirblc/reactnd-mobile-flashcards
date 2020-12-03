@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
 		margin: 5
 	},
 	title: {
+		alignSelf: 'center',
 		fontSize: 22,
 		padding: 5
 	},
