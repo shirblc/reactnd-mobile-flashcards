@@ -14,6 +14,7 @@ import Home from './components/Home';
 import AddDeck from './components/AddDeck';
 import OpenDeck from './components/OpenDeck';
 import AddQ from './components/AddQ';
+import Quiz from './components/Quiz';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -31,6 +32,7 @@ export default class App extends React.Component {
 						<Stack.Screen name='Add Deck' component={AddDeck} />
 						<Stack.Screen name='Deck View' component={OpenDeck} options={{ title: 'Open Deck' }} />
 						<Stack.Screen name='Add Card' component={AddQ} />
+						<Stack.Screen name='Quiz' component={Quiz} />
 					</Stack.Navigator>
 				</Provider>
 			</NavigationContainer>
