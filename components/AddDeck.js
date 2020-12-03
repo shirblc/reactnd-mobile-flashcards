@@ -21,13 +21,18 @@ class AddDeck extends React.Component {
 		this.props.navigation.navigate('Home');
 	}
 
+	// Disables/Enables the 'add deck' button depending on whether the text field is empty
+	checkEmptyField  = () => {
+		return this.state.deckName.length === 0;
+	}
+
 	// render method
 	render() {
 		return (
 			<KeyboardAvoidingView style={styles.container}>
 				<Text style={styles.fieldTitle}>Deck Name:</Text>
 				<TextInput style={styles.textField} onChangeText={(text) => (this.updateName(text))} placeholder='Deck title'></TextInput>
-				<TouchableOpacity style={styles.submit} onPress={() => (this.addDeck())}><Text>Add Deck</Text></TouchableOpacity>
+				<TouchableOpacity style={styles.submit} onPress={() => (this.addDeck())} disabled={this.checkEmptyField()}><Text>Add Deck</Text></TouchableOpacity>
 			</KeyboardAvoidingView>
 		)
 	}

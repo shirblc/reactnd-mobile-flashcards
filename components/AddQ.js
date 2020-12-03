@@ -23,6 +23,11 @@ class AddQ extends React.Component {
 		this.props.navigation.dispatch(CommonActions.goBack());
 	}
 
+	// Disables/Enables the 'add question' button depending on whether the text fields are empty
+	checkEmptyField  = () => {
+		return this.state.question.length === 0 || this.state.answer.length === 0;
+	}
+
 	// render method
 	render() {
 		return (
@@ -31,7 +36,7 @@ class AddQ extends React.Component {
 				<TextInput style={styles.textField} onChangeText={(text) => (this.updateCard(text, 'question'))} placeholder='Question'></TextInput>
 				<Text style={styles.fieldTitle}>Enter the answer:</Text>
 				<TextInput style={styles.textField} onChangeText={(text) => (this.updateCard(text, 'answer'))} placeholder='Correct Answer'></TextInput>
-				<TouchableOpacity style={styles.submit} onPress={() => (this.addQuestion())}><Text>Add Question</Text></TouchableOpacity>
+				<TouchableOpacity style={styles.submit} onPress={() => (this.addQuestion())} disabled={this.checkEmptyField()}><Text>Add Question</Text></TouchableOpacity>
 			</KeyboardAvoidingView>
 		)
 	}
