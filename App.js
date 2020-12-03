@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // App-specific imports
 import reducer from './reducers/index';
@@ -15,10 +16,25 @@ import AddDeck from './components/AddDeck';
 import OpenDeck from './components/OpenDeck';
 import AddQ from './components/AddQ';
 import Quiz from './components/Quiz';
+import Settings from './components/Settings';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
 const Stack = createStackNavigator();
+const TabsNav = createBottomTabNavigator();
+
+// Home / Quizzes stack navigator
+function HomeStack() {
+	return (
+		<Stack.Navigator>
+			<Stack.Screen name='Home' component={Home} />
+			<Stack.Screen name='Add Deck' component={AddDeck} />
+			<Stack.Screen name='Deck View' component={OpenDeck} options={{ title: 'Open Deck' }} />
+			<Stack.Screen name='Add Card' component={AddQ} />
+			<Stack.Screen name='Quiz' component={Quiz} />
+		</Stack.Navigator>
+	)
+}
 
 export default class App extends React.Component {
 	// render
@@ -27,13 +43,10 @@ export default class App extends React.Component {
 			<NavigationContainer>
 				<Provider store={store}>
 					<StatusBar style="auto" />
-					<Stack.Navigator>
-						<Stack.Screen name='Home' component={Home} />
-						<Stack.Screen name='Add Deck' component={AddDeck} />
-						<Stack.Screen name='Deck View' component={OpenDeck} options={{ title: 'Open Deck' }} />
-						<Stack.Screen name='Add Card' component={AddQ} />
-						<Stack.Screen name='Quiz' component={Quiz} />
-					</Stack.Navigator>
+					<TabsNav.Navigator>
+						<TabsNav.Screen name='Home' component={HomeStack} />
+						<TabsNav.Screen name='Settings' component={Settings} />
+					</TabsNav.Navigator>
 				</Provider>
 			</NavigationContainer>
 		);
