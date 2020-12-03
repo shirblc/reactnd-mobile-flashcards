@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { checkNotificationPermission } from '../utils/notifications';
+import { checkNotificationPermission, disableNotifications } from '../utils/notifications';
 import { getSettings, updateSettings } from '../utils/storage';
 
 class Settings extends React.Component {
@@ -32,7 +32,14 @@ class Settings extends React.Component {
 			notificationsEnabled: !this.state.notificationsEnabled
 		});
 		
-		checkNotificationPermission();
+		// if the user wants to enable notifications, check for permission
+		if(!this.state.notificationsEnabled) {
+			checkNotificationPermission();
+		}
+		// otherwise cancel all scheduled notifications
+		else {
+			disableNotifications();
+		}
 	}
 	
 	// render method

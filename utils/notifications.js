@@ -47,3 +47,8 @@ function scheduleNotifications() {
 		AsyncStorage.setItem(NOTIFICATIONS_IDENTIFIER, notifIdentifier)
 	});
 }
+
+// Disable all existing notifications
+export function disableNotifications() {
+	return Notifications.cancelAllScheduledNotificationsAsync();
+}
