@@ -76,21 +76,25 @@ function addDeck(deckName) {
 export function addQuestion(question, answer, deck) {
 	// update the relevant deck with the new question's ID and update the questions
 	// object with the new question
-	return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
-		decks: {
-			[deck]: {
-				questions: [NEXT_QUESTION_ID]
+	return AsyncStorage.getItem(STORAGE_KEY).then(data => {
+		const deckQuestions = JSON.parse(data).decks[deck].questions;
+		
+		return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
+			decks: {
+				[deck]: {
+					questions: [ ...deckQuestions, NEXT_QUESTION_ID]
+				}
+			},
+			questions: {
+				[NEXT_QUESTION_ID]: {
+					deck,
+					question,
+					answer
+				}
 			}
-		},
-		questions: {
-			[NEXT_QUESTION_ID]: {
-				deck,
-				question,
-				answer
-			}
-		}
+		}))
 	// once that's done, get the new question's information and return it
-	})).then(updatedData => {
+	}).then(updatedData => {
 		const newQID = NEXT_QUESTION_ID;
 		const newQData = updatedData ? JSON.parse(updatedData).questions[NEXT_QUESTION_ID] : {
 			deck,
