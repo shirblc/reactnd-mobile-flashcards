@@ -1,0 +1,60 @@
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+
+class OpenDeck extends React.Component {
+	// render method
+	render() {
+		return (
+			<View style={styles.container}>
+				<Text style={styles.deckName}>{ this.props.deck.name }</Text>
+				<Text style={styles.deckText}>{ this.props.deck.questions.length } questions</Text>
+				
+				<TouchableOpacity style={styles.deckButton}><Text style={styles.buttonText}>Add Card</Text></TouchableOpacity>
+				<TouchableOpacity style={styles.deckButton}><Text style={styles.buttonText}>Start Quiz</Text></TouchableOpacity>
+			</View>
+		)
+	}
+}
+
+// Map State to Props
+// Gets the questions of this specific deck
+function mapStateToProps({ decks }, { route }) {
+	const deckID = route.params.deckID;
+	
+	return {
+		deck: {
+			...decks[deckID]
+		}
+	}
+}
+
+// styles
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		padding: 5,
+		alignItems: 'center'
+	},
+	deckName: {
+		fontSize: 24,
+		padding: 10
+	},
+	deckText: {
+		fontSize: 20,
+		padding: 10
+	},
+	deckButton: {
+		borderColor: '#000',
+		borderStyle: 'solid',
+		borderRadius: 5,
+		borderWidth: 3,
+		padding: 10,
+		margin: 10
+	},
+	buttonText: {
+		fontSize: 16
+	}
+});
+
+export default connect(mapStateToProps)(OpenDeck);
