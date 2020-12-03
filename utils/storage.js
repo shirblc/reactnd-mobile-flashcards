@@ -109,3 +109,20 @@ export function addQuestion(question, answer, deck) {
 		}
 	});
 }
+
+// Get the user's settings from AsyncStorage (if there are any)
+export function getSettings() {
+	return AsyncStorage.getItem(SETTINGS_KEY).then(data => {
+		if(data) {
+			return JSON.parse(data);
+		}
+		else {
+			return null;
+		}
+	});
+}
+
+// Update the user's currently saved settings
+export function updateSettings(newSettings) {
+	return AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(newSettings));
+}
