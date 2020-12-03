@@ -1,13 +1,28 @@
 import React from 'react';
 import { SafeAreaView, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { checkNotificationPermission } from '../utils/notifications';
 
 class Settings extends React.Component {
+	state = {
+		notificationsEnabled: false
+	}
+	
+	// Updates notifications settings to the opposite of what it was
+	updateNotificationsSetting() {
+		this.setState(currentState => ({
+			notificationsEnabled: !currentState.notificationsEnabled
+		}));
+		
+		checkNotificationPermission();
+	}
+	
+	// render method
 	render() {
 		return (
 			<SafeAreaView style={styles.container}>
 				<Text style={styles.mainTitle}>Settings</Text>
 				<Text style={styles.sectionTitle}>Notifications:</Text>
-				<TouchableOpacity style={styles.button}><Text style={styles.buttonText}>Enable</Text></TouchableOpacity>
+				<TouchableOpacity style={styles.button} onPress={() => (this.updateNotificationsSetting())}><Text style={styles.buttonText}>{ this.state.notificationsEnabled ? 'Disable' : 'Enable' }</Text></TouchableOpacity>
 			</SafeAreaView>
 		)
 	}
