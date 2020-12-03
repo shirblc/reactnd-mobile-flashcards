@@ -16,3 +16,24 @@ export function getData() {
 		return data ? { decks, questions } : { decks: {}, questions: {} }
 	});
 }
+
+// Create a new deck of cards
+export function createDeck(deckName) {
+	// merge the new deck into async storage
+	return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
+		decks: {
+			[NEXT_DECK_ID]: {
+				name: deckName,
+				questions: []
+			}
+		}
+	// if successful, return the new deck and update the next ID
+	})).then(updatedData => {
+		const newDeckID = Object.keys(updatedData.decks)[Object.keys(updatedData.decks).length-1];
+		NEXT_DECK_ID++;
+		return updatedData.decks[newDeckID];
+	// if there's an error, return it
+	}).catch(err => {
+		return err;
+	})
+}
