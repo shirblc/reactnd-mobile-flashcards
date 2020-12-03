@@ -1,10 +1,24 @@
 import React from 'react';
 import { SafeAreaView, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { checkNotificationPermission } from '../utils/notifications';
+import { getSettings, updateSettings } from '../utils/storage';
 
 class Settings extends React.Component {
 	state = {
 		notificationsEnabled: false
+	}
+
+	// called automatically upon rendering the component
+	componentDidMount() {
+		// get the user's settings from AsyncStorage
+		getSettings().then(data => {
+			// if there are settings, set the component state to match those
+			if(data) {
+				this.setState({
+					notificationsEnabled: data.notificationsEnabled
+				})
+			}
+		})
 	}
 	
 	// Updates notifications settings to the opposite of what it was
@@ -12,6 +26,11 @@ class Settings extends React.Component {
 		this.setState(currentState => ({
 			notificationsEnabled: !currentState.notificationsEnabled
 		}));
+		
+		// update async storage with the new settings
+		updateSettings({
+			notificationsEnabled: !this.state.notificationsEnabled
+		});
 		
 		checkNotificationPermission();
 	}
