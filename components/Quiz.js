@@ -47,7 +47,7 @@ class Quiz extends React.Component {
 					<Text style={styles.currentQ}>Quiz: { this.props.deck.name }</Text>
 					<Text style={styles.qText}>You scored { this.state.correctAnswers } out of { this.props.questions.length }!</Text>
 					<Text style={styles.currentQ}>That's about { (this.state.correctAnswers / this.props.questions.length * 100).toFixed(2) }% right! </Text>
-					<TouchableOpacity style={styles.questButton}><Text style={styles.buttonText}>Back to home view</Text></TouchableOpacity>
+					<TouchableOpacity style={styles.questButton}><Text style={styles.buttonText} onPress={() => (this.props.navigation.navigate('Home'))}>Back to home view</Text></TouchableOpacity>
 				</View>)
 			}
 		</View>
