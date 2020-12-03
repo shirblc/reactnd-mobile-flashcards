@@ -1,4 +1,4 @@
-import { ADD_QUESTIONS } from '../actions/questions';
+import { ADD_QUESTIONS, CREATE_QUESTION } from '../actions/questions';
 
 // Questions reducer
 export default function questionsReducer(state = {}, action) {
@@ -6,6 +6,14 @@ export default function questionsReducer(state = {}, action) {
 		// if the incoming action is to add multiple questions, add them to the current state
 		case ADD_QUESTIONS:
 			return { ...state, ...action.questions }
+		// if the incoming action is to add a new question, add it to the current state
+		case CREATE_QUESTION:
+			return {
+				...state,
+				[action.question.id]: {
+					...action.question.question
+				}
+			}
 		// otherwise return the state as is
 		default:
 			return state

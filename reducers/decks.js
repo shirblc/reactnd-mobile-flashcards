@@ -1,4 +1,5 @@
 import { ADD_DECKS, CREATE_DECK } from '../actions/decks';
+import { CREATE_QUESTION } from '../actions/questions';
 
 // Decks reducer
 export default function decksReducer(state = {}, action) {
@@ -12,6 +13,15 @@ export default function decksReducer(state = {}, action) {
 				...state,
 				[action.deck.id]: {
 					...action.deck.deck
+				}
+			}
+		// if the incoming action is to add a new question, add its ID to the right deck's 'questions' arrray.
+		case CREATE_QUESTION:
+			return {
+				...state,
+				[action.question.question.deck]: {
+					...state[action.question.question.deck],
+					questions: [ ...state[action.question.question.deck].questions, action.question.id ]
 				}
 			}
 		// otherwise return the state as is
