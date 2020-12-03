@@ -24,6 +24,7 @@ export function createQuestionAsync(question, answer, deck) {
 function createQuestion(question) {
 	return {
 		type: CREATE_QUESTION,
-		question
+		id: question.id,
+		question: question.question
 	}
 }

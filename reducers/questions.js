@@ -10,8 +10,8 @@ export default function questionsReducer(state = {}, action) {
 		case CREATE_QUESTION:
 			return {
 				...state,
-				[action.question.id]: {
-					...action.question.question
+				[action.id]: {
+					...action.question
 				}
 			}
 		// otherwise return the state as is

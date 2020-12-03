@@ -19,9 +19,9 @@ export default function decksReducer(state = {}, action) {
 		case CREATE_QUESTION:
 			return {
 				...state,
-				[action.question.question.deck]: {
-					...state[action.question.question.deck],
-					questions: [ ...state[action.question.question.deck].questions, action.question.id ]
+				[action.question.deck]: {
+					...state[action.question.deck],
+					questions: [ ...state[action.question.deck].questions, action.id ]
 				}
 			}
 		// otherwise return the state as is
