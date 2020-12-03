@@ -21,6 +21,8 @@ This project was bootstrapped with [Create React Native App](https://github.com/
 6. With the server running, scan the QR on your device (remember to make sure you're using the same network as your computer). This should start the Expo app, running Mobile Flashcards. 
 7. Add cards, get quizzed, and enjoy the app!
 
+*The app was tested on an iOS device (running iOS 14) and works correctly. It should work similarly on Android.
+
 ## Contents
 
 The project contains a number of important files:
