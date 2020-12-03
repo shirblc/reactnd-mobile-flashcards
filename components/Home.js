@@ -20,7 +20,7 @@ class Home extends React.Component {
 				</Pressable>
 				{
 					Object.values(this.props.decks).length
-					? Object.values(this.props.decks).map(deck =>  <Deck deckName={deck.name} cardsNumber={deck.questions.length} />)
+					? Object.entries(this.props.decks).map(entry =>  <Deck key={entry[0]} deckName={entry[1].name} cardsNumber={entry[1].questions.length} />)
 					: <Text>No decks yet. Add your first one now!</Text>
 				}
 			</View>
