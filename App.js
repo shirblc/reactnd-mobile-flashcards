@@ -6,20 +6,25 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import reducer from './reducers/index';
 import Home from './components/Home';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const store = createStore(reducer, applyMiddleware(thunk));
+
+const Stack = createStackNavigator();
 
 export default class App extends React.Component {
 	// render
 	render() {
 		return (
-			<Provider store={store}>
-				<View style={styles.container}>
-					<Text>Open up App.js to start working on your app!</Text>
-					<Home />
+			<NavigationContainer>
+				<Provider store={store}>
 					<StatusBar style="auto" />
-				</View>
-			</Provider>
+					<Stack.Navigator>
+						<Stack.Screen name='Home' component={Home} />
+					</Stack.Navigator>
+				</Provider>
+			</NavigationContainer>
 		);
 	}
 }
