@@ -1,6 +1,6 @@
 // General React-related imports
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 
 // App-specific imports
 import reducer from './reducers/index';
@@ -44,8 +45,24 @@ export default class App extends React.Component {
 				<Provider store={store}>
 					<StatusBar style="auto" />
 					<TabsNav.Navigator>
-						<TabsNav.Screen name='Home' component={HomeStack} />
-						<TabsNav.Screen name='Settings' component={Settings} />
+						<TabsNav.Screen name='Home' 
+							component={HomeStack} 
+							options={{
+								tabBarIcon: ({color, size}) => (
+									Platform.OS === 'iOS' 
+									? <Ionicons name="ios-book-outline" size={size} color={color} />
+									: <Ionicons name="md-book-outline" size={size} color={color} />
+								)}} 
+							/>
+						<TabsNav.Screen name='Settings' 
+							component={Settings} 
+							options={{
+								tabBarIcon: ({color, size}) => (
+									Platform.OS === 'iOS' 
+									? <Ionicons name="ios-settings-outline" size={size} color={color} />
+									: <Ionicons name="md-settings-outline" size={size} color={color} />
+								)}} 
+							/>
 					</TabsNav.Navigator>
 				</Provider>
 			</NavigationContainer>
