@@ -2,7 +2,7 @@ import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const NOTIFICATIONS_IDENTIFIER = 'mobileFlashCards';
+const NOTIFICATIONS_IDENTIFIER = 'mobileFlashcardsNotif';
 
 // Check whether the user has given permission to notifications
 export function checkNotificationPermission() {

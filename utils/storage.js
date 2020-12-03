@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const STORAGE_KEY = 'mobileFlashcards';
+const STORAGE_KEY = 'mobileFlashcardsData';
 let NEXT_DECK_ID = 0;
 let NEXT_QUESTION_ID = 0;
+const SETTINGS_KEY = 'mobileFlashcardsSettings';
 
 // Get all saved data from AsyncStorage
 export function getData() {
