@@ -18,6 +18,7 @@ import OpenDeck from './components/OpenDeck';
 import AddQ from './components/AddQ';
 import Quiz from './components/Quiz';
 import Settings from './components/Settings';
+import EditDeck from './components/EditDeck';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -39,6 +40,7 @@ function HomeStack() {
 			<Stack.Screen name='Deck View' component={OpenDeck} options={{ title: 'Open Deck' }} />
 			<Stack.Screen name='Add Card' component={AddQ} />
 			<Stack.Screen name='Quiz' component={Quiz} />
+			<Stack.Screen name='Edit Deck' component={EditDeck} options={{ title: 'Edit Deck' }} />
 		</Stack.Navigator>
 	)
 }

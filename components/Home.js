@@ -38,7 +38,9 @@ class Home extends React.Component {
 						  renderItem={({ item }) => (
 								<Pressable key={item[0]} onPress={() => (this.props.navigation.navigate('Deck View', {
 									   deckID: item[0]
-								   }))}>
+								   }))} onLongPress={() => (this.props.navigation.navigate('Edit Deck', {
+										deckID: item[0]
+									}))}>
 								   <Deck deckName={item[1].name} cardsNumber={item[1].questions.length} />
 							   </Pressable>
 							)} />
