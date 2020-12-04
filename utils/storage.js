@@ -85,7 +85,9 @@ export function editDeckName(deckID, newName) {
 	// then return the updated deck's data
 	})).then(updatedData => {
 		const parsedData = JSON.parse(updatedData);
-		const updatedDeck = parsedData.decks[deckID];
+		const updatedDeck = parsedData ? parsedData.decks[deckID] : {
+			name: newName
+		};
 		
 		return updatedDeck;
 	})

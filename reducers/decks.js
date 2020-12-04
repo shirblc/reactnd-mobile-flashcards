@@ -30,7 +30,7 @@ export default function decksReducer(state = {}, action) {
 				...state,
 				[action.id]: {
 					name: action.updatedDeck.name,
-					...state[action.id]
+					questions: [ ...state[action.id].questions ]
 				}
 			}
 		// otherwise return the state as is
