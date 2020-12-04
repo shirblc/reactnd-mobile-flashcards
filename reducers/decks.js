@@ -1,4 +1,4 @@
-import { ADD_DECKS, CREATE_DECK } from '../actions/decks';
+import { ADD_DECKS, CREATE_DECK, EDIT_DECK } from '../actions/decks';
 import { CREATE_QUESTION } from '../actions/questions';
 
 // Decks reducer
@@ -22,6 +22,15 @@ export default function decksReducer(state = {}, action) {
 				[action.question.deck]: {
 					...state[action.question.deck],
 					questions: [ ...state[action.question.deck].questions, action.id ]
+				}
+			}
+		// if the incoming action is editing a deck's name, edit it
+		case EDIT_DECK:
+			return {
+				...state,
+				[action.id]: {
+					name: action.updatedDeck.name,
+					...state[action.id]
 				}
 			}
 		// otherwise return the state as is
