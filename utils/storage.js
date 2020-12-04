@@ -73,6 +73,24 @@ function addDeck(deckName) {
 		})));
 }
 
+// Edit a deck's name in async storage
+export function editDeckName(deckID, newName) {
+	// merge the new name into async storage
+	return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
+		decks: {
+			[deckID]: {
+				name: newName
+			}
+		}
+	// then return the updated deck's data
+	})).then(updatedData => {
+		const parsedData = JSON.parse(updatedData);
+		const updatedDeck = parsedData.decks[deckID];
+		
+		return updatedDeck;
+	})
+}
+
 // Add a new question to async storage
 export function addQuestion(question, answer, deck) {
 	// update the relevant deck with the new question's ID and update the questions
