@@ -1,14 +1,34 @@
 import React from 'react';
 import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import { CommonActions } from '@react-navigation/native';
+import { editDeckAsync } from '../actions/decks';
 
 class EditDeck extends React.Component {
+	state = {
+		newName: this.props.deck.name
+	}
+
+	// update the new name as saved in the state.
+	updateNameValue(name) {
+		this.setState({
+			newName: name
+		});
+	}
+
+	// Make the request to update the name in the redux store and in async storage
+	updateDeckName() {
+		this.props.dispatch(editDeckAsync(this.props.route.params.deckID, this.state.newName));
+		this.props.navigation.dispatch(CommonActions.goBack());
+	}
+	
+	// render method
 	render() {
 		return (
 			<KeyboardAvoidingView style={styles.container}>
 				<Text style={styles.fieldTitle}>Deck Name:</Text>
-				<TextInput style={styles.textField}></TextInput>
-				<TouchableOpacity style={styles.submit}><Text>Edit Deck Name</Text></TouchableOpacity>
+				<TextInput style={styles.textField} defaultValue={this.props.deck.name} onChangeText={(name) => (this.updateNameValue(name))}></TextInput>
+				<TouchableOpacity style={styles.submit} onPress={() => (this.updateDeckName())}><Text>Save New Name</Text></TouchableOpacity>
 				<TouchableOpacity style={styles.submit}><Text>Delete Deck</Text></TouchableOpacity>
 				<TouchableOpacity style={styles.submit}><Text>Clear Deck</Text></TouchableOpacity>
 			</KeyboardAvoidingView>
@@ -16,6 +36,17 @@ class EditDeck extends React.Component {
 	}
 }
 
+// Map State to Props
+// Gets the details of this specific deck
+function mapStateToProps({ decks }, { route }) {
+	const deckID = route.params.deckID;
+	
+	return {
+		deck: decks[deckID]
+	}
+}
+
+// styles
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -42,4 +73,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default connect()(EditDeck);
+export default connect(mapStateToProps)(EditDeck);
