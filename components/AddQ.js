@@ -10,14 +10,27 @@ class AddQ extends React.Component {
 		answer: ''
 	}
 	
-	// Update the question or answer currently inputted by the user
+	/*
+  	Function Name: updateCard()
+  	Function Description: Update the question or answer currently inputted by the user.
+  	Parameters: newText (string) - the updated text
+							updateField (string) - the name of the field to update
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	updateCard(newText, updateField) {
 		this.setState({
 			[updateField]: newText
 		});
 	}
 
-	// Add the question to the store and to AsyncStorage
+	/*
+  	Function Name: addQuestion()
+  	Function Description: Add the question to the store and to AsyncStorage.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	addQuestion() {
 		this.props.dispatch(createQuestionAsync(this.state.question, this.state.answer, this.props.route.params.deckID));
 		this.props.navigation.dispatch(CommonActions.goBack());
@@ -28,7 +41,13 @@ class AddQ extends React.Component {
 		return this.state.question.length === 0 || this.state.answer.length === 0;
 	}
 
-	// render method
+	/*
+  	Function Name: render()
+  	Function Description: Renders the component.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	render() {
 		return (
 			<KeyboardAvoidingView style={styles.container}>

@@ -11,7 +11,13 @@ class Quiz extends React.Component {
 		otherOption: 'answer'
 	}
 
-	// Change the text currently showing; if the user's viewing the question, show the answer, and vice versa
+	/*
+  	Function Name: changeView()
+  	Function Description: Change the text currently showing; if the user's viewing the question, show the answer, and vice versa.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	changeView() {
 		this.setState(currentState => ({
 			currentlyShowing: currentState['currentlyShowing'] === 'question' ? 'answer' : 'question',
@@ -19,7 +25,13 @@ class Quiz extends React.Component {
 		}))
 	}
 
-	// Updates the user's score (if needed) and the current question in order to continue the quiz
+	/*
+  	Function Name: nextQuestion()
+  	Function Description: Updates the user's score (if needed) and the current question in order to continue the quiz.
+  	Parameters: correctAnswer (boolean) - indicating whether the user answered correctly.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	nextQuestion(correctAnswer) {
 		// if this wasn't the last question, update the state to show the next question and update the user's score (if needed)
 		this.setState(currentState => ({
@@ -35,7 +47,13 @@ class Quiz extends React.Component {
 		}
 	}
 
-	// Start the quiz over
+	/*
+  	Function Name: redoQuiz()
+  	Function Description: Starts the quiz over.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	redoQuiz() {
 		this.setState(currentState => ({
 			correctAnswers: 0,
@@ -45,7 +63,13 @@ class Quiz extends React.Component {
 		}));
 	}
 
-	// render method
+	/*
+  	Function Name: render()
+  	Function Description: Renders the component.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	render() {
 		return (
 			<SafeAreaView style={styles.container}>

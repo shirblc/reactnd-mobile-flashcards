@@ -24,7 +24,13 @@ const store = createStore(reducer, applyMiddleware(thunk));
 const Stack = createStackNavigator();
 const TabsNav = createBottomTabNavigator();
 
-// Home / Quizzes stack navigator
+/*
+Function Name: HomeStack()
+Function Description: Renders the Home / Quizzes stack navigator.
+Parameters: None.
+----------------
+Programmer: Shir Bar Lev.
+*/
 function HomeStack() {
 	return (
 		<Stack.Navigator>
@@ -38,7 +44,13 @@ function HomeStack() {
 }
 
 export default class App extends React.Component {
-	// render
+	/*
+  	Function Name: render()
+  	Function Description: Renders the component.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	render() {
 		return (
 			<NavigationContainer>

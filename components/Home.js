@@ -6,12 +6,24 @@ import { getInitialData } from '../actions/shared';
 import Deck from './Deck';
 
 class Home extends React.Component {
-	// called automatically upon rendering the component
+	/*
+  	Function Name: componentDidMount()
+  	Function Description: Dispatches an action to get existing decks and questions upon inserting the component into the DOM. This method is automatically triggered by React.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	componentDidMount() {
 		this.props.dispatch(getInitialData());
 	}
 	
-	// render
+	/*
+  	Function Name: render()
+  	Function Description: Renders the component.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	render() {
 		return (
 			<SafeAreaView style={styles.container}>

@@ -8,14 +8,26 @@ class AddDeck extends React.Component {
 		deckName: ''
 	}
 
-	// Update the name of the new deck
+	/*
+  	Function Name: updateName()
+  	Function Description: Update the name of the new deck as saved in the component's state.
+  	Parameters: newName (string) - the current value of the deck name text field.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	updateName(newName) {
 		this.setState({
 			deckName: newName
 		});
 	}
 
-	// Create a new deck with the given deck name
+	/*
+  	Function Name: addDeck()
+  	Function Description: Create a new deck with the given deck name (as it was updated in the component's state).
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	addDeck() {
 		new Promise((res, rej) => {
 			this.props.dispatch(createDeckAsync(this.state.deckName))
@@ -29,12 +41,24 @@ class AddDeck extends React.Component {
 		})
 	}
 
-	// Disables/Enables the 'add deck' button depending on whether the text field is empty
+	/*
+  	Function Name: checkEmptyField()
+  	Function Description: Disables/Enables the 'add deck' button depending on whether the text field is empty.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	checkEmptyField  = () => {
 		return this.state.deckName.length === 0;
 	}
 
-	// render method
+	/*
+  	Function Name: render()
+  	Function Description: Renders the component.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	render() {
 		return (
 			<KeyboardAvoidingView style={styles.container}>

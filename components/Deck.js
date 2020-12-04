@@ -3,6 +3,13 @@ import { View, Text, StyleSheet } from 'react-native';
 
 // Deck of cards
 class Deck extends React.Component {
+	/*
+  	Function Name: render()
+  	Function Description: Renders the component.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	render() {
 		return (
 			<View style={styles.deck}>

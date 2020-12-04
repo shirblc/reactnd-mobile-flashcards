@@ -3,17 +3,36 @@ import { SafeAreaView, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 class OpenDeck extends React.Component {
-	// called automatically upon rendering the component
+	/*
+  	Function Name: componentDidMount()
+  	Function Description: Adjusts the name of the navigator screen upon inserting the component into the DOM. This method is automatically triggered by React.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	componentDidMount() {
 		this.props.navigation.setOptions({ title: this.props.deck.name })
 	}
 	
-	// Disables the quiz button if there are no questions
+	// 
+	/*
+  	Function Name: checkNumQuestions()
+  	Function Description: Disables the quiz button if there are no existing questions.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	checkNumQuestions  = () => {
 		return this.props.deck.questions.length === 0;
 	}
 	
-	// render method
+	/*
+  	Function Name: render()
+  	Function Description: Renders the component.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	render() {
 		return (
 			<SafeAreaView style={styles.container}>

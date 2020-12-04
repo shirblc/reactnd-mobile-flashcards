@@ -8,7 +8,13 @@ class Settings extends React.Component {
 		notificationsEnabled: false
 	}
 
-	// called automatically upon rendering the component
+	/*
+  	Function Name: componentDidMount()
+  	Function Description: Fetches existing settings and checks for notificatons permission upon inserting the component into the DOM. This method is automatically triggered by React.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	componentDidMount() {
 		// get the user's settings from AsyncStorage
 		getSettings().then(data => {
@@ -32,7 +38,13 @@ class Settings extends React.Component {
 		})
 	}
 	
-	// Check whether notifications settings can be updated
+	/*
+  	Function Name: checkNotificationsSettings()
+  	Function Description: Check whether notifications settings can be updated.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	checkNotificationsSettings() {
 		// if the user wants to enable notifications, check for permission
 		if(!this.state.notificationsEnabled) {
@@ -50,7 +62,13 @@ class Settings extends React.Component {
 		}
 	}
 
-	// Updates notifications settings to the opposite of what it was
+	/*
+  	Function Name: updateNotificationsSettings()
+  	Function Description: Updates notifications settings to the opposite of what it was.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	updateNotificationsSettings() {
 		// update the state
 		this.setState(currentState => ({
@@ -63,7 +81,13 @@ class Settings extends React.Component {
 		});
 	}
 	
-	// render method
+	/*
+  	Function Name: render()
+  	Function Description: Renders the component.
+  	Parameters: None.
+	----------------
+  	Programmer: Shir Bar Lev.
+  	*/
 	render() {
 		return (
 			<SafeAreaView style={styles.container}>
