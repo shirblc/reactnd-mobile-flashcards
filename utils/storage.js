@@ -93,6 +93,23 @@ export function editDeckName(deckID, newName) {
 	})
 }
 
+// Delete deck in async storage
+export function deleteDeck(deckID) {
+	return AsyncStorage.getItem(STORAGE_KEY).then(data => {
+		const deckToDelete = data.decks[deckID];
+		
+		//  delete the questions
+		deckToDelete.questions.forEach(question => {
+			delete data.questions[question]
+		});
+		
+		// delete the deck
+		delete data.decks[deckID];
+		
+		return AsyncStorage.setItem(STORAGE_KEY, data);
+	})
+}
+
 // Add a new question to async storage
 export function addQuestion(question, answer, deck) {
 	// update the relevant deck with the new question's ID and update the questions
